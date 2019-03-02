@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import {withRouter}  from "react-router-dom"
+
 import {
     Layout, Menu, Icon,
   }   
@@ -9,10 +11,14 @@ import {
 import "./Frame.less"
 const { Header, Content, Sider } = Layout;
 
+@withRouter
 export default class Frame extends Component {
-
+  navClick=({key})=>{
+    console.log(key)
+    this.props.history.push(key)
+  }
   render() {
-      console.log(this.props.children)
+      console.log(this.props.frameInfo)
     return (
         <Layout>
         <Header className="header">
@@ -22,22 +28,25 @@ export default class Frame extends Component {
           <Sider width={200} style={{ background: '#fff' }}>
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={[this.props.frameInfo[0].path]}
               defaultOpenKeys={['sub1']}
+              onClick={this.navClick}
               style={{ height: '100%', borderRight: 0 }}
             >
-                <Menu.Item key="1"><Icon type="dashboard" />仪表盘</Menu.Item>
-                <Menu.Item key="2"><Icon type="form" />文章管理</Menu.Item>
-                <Menu.Item key="3"><Icon type="setting" />设置</Menu.Item>
-                <Menu.Item key="4"><Icon type="user" />个人中心</Menu.Item>
+            {
+              this.props.frameInfo.map((curr)=>{
+                return  <Menu.Item key={curr.path}><Icon type={curr.iconType} />{curr.title}</Menu.Item>
+              })
+            }
+              
             </Menu>
           </Sider>
           <Layout >
-            <Content style={{
+            <Content   style={{
               background: '#fff', margin: 0, minHeight: 280,
             }}
             >
-   
+            {this.props.children }
             </Content>
           </Layout>
         </Layout>
@@ -45,3 +54,5 @@ export default class Frame extends Component {
     )
   }
 }
+
+ 

@@ -8,28 +8,29 @@ var moment = require('moment');
 
 
 
-const dataSource =Array.from(Array(50).keys()).map((curr)=>{
-  return {
-      key: curr,
-      name: 'frank',
-      age: 18,
-      address: '西湖区湖底公园1号',
-      article:`文章${curr}`,
-      createAt:moment( new Date().getTime()).format("YYYY年MM月DD日 h:mm:ss")
-    }
-})
+
+// Array.from(Array(50).keys()).map((curr)=>{
+//   return {
+//       key: curr,
+//       name: 'frank',
+//       age: 18,
+//       address: '西湖区湖底公园1号',
+//       article:`文章${curr}`,
+//       createAt:moment( new Date().getTime()).format("YYYY年MM月DD日 h:mm:ss")
+//     }
+// })
 
 
 const columns = [
   {
     title: '文章',
-    dataIndex: `article`,
-    key: 'article',
+    dataIndex: `title`,
+    key: 'title',
   },
   {
   title: '姓名',
-  dataIndex: 'name',
-  key: 'name',
+  dataIndex: 'author',
+  key: 'author',
   },
   {
   title: '发表时间',
@@ -53,10 +54,32 @@ const columns = [
 }];
 
 export default class Article extends Component {
+  constructor(){
+    super()
+    this.state={
+      dataSource:[],
+      isLoading:true
+    }
+  }
+  componentDidMount(){
+    getArticle().then((res)=>{
+      console.log(res.data.data)
+      if(res.data.code===200){
+        this.setState({
+          createAt:moment(res.data.data[0].createAt).format("YYYY年MM月DD日 hh:mm:ss"),
+          dataSource:res.data.data,
+          isLoading:false
+        })
+
+      }
+      })
+    }
+  
   render() {
+    console.log(this.state)
     return (
       <div>
-      <Table dataSource={dataSource} 
+      <Table dataSource={this.state.dataSource} 
               columns={columns}
               pagination={{
                   defaultCurrent:2,
@@ -65,7 +88,7 @@ export default class Article extends Component {
                   showQuickJumper:true,
                   showSizeChanger:true
                   }}
-                  loading={false}      
+                  loading={this.state.isLoading}      
               />
 
        </div>

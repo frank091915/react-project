@@ -4,8 +4,11 @@ const ajax=axios.create({
     baseURL:'http://rap2api.taobao.org/app/mock/160659'
 }
 )
-const getArticle=()=>{
-    return ajax.post('/api/v1/articleList')
-}
 
-export default getArticle
+export const getArticleListBeTest = (params) => {
+    return ajax.post('/api/v1/articleListBeTest', params)
+  }
+  export const deleteArticleById = (id) => {
+    return ajax.post(`/api/v1/article/delete/${id}`)
+  }
+

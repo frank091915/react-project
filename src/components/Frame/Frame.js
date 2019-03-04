@@ -18,7 +18,7 @@ export default class Frame extends Component {
     this.props.history.push(key)
   }
   render() {
-      console.log(this.props.frameInfo)
+
     return (
         <Layout>
         <Header className="header">

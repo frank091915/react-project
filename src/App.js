@@ -31,6 +31,7 @@ class App extends Component {
                     // TODO: 权限判断
                     return <route.component {...props}/>
                   }}
+                  
                 />
               )
             })

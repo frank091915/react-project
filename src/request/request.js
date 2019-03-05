@@ -8,7 +8,9 @@ const ajax=axios.create({
 export const getArticleListBeTest = (params) => {
     return ajax.post('/api/v1/articleListBeTest', params)
   }
-  export const deleteArticleById = (id) => {
+export const deleteArticleById = (id) => {
     return ajax.post(`/api/v1/article/delete/${id}`)
   }
-
+export const getArticleById = (id) => {
+    return ajax.post(`/api/v1/getArticle/${id}`)
+  }

@@ -47,7 +47,7 @@ export default class Article extends Component {
       render:(text, record, index)=>{
          return <ButtonGroup>
                   <Tooltip title={`编辑${record.title}`}>
-                    <Button size="small" type="primary">编辑</Button>
+                    <Button onClick={this.toEdit.bind(this,record)} size="small" type="primary">编辑</Button>
                     </Tooltip>
                     <Tooltip title={`删除${record.title}`}>
                    <Button onClick={this.toClickDelete.bind(this,record)} size="small" type="ghost">删除</Button>
@@ -88,10 +88,10 @@ export default class Article extends Component {
         render:(text, record, index)=>{
            return <ButtonGroup>
                     <Tooltip title={`编辑${record.title}`}>
-                      <Button size="small" type="primary">编辑</Button>
+                      <Button onClick={this.toEdit.bind(this,record)} size="small" type="primary">编辑</Button>
                       </Tooltip>
                       <Tooltip title={`删除${record.title}`}>
-                     <Button onClick={this.toClickDelete.bind(this,record)} size="small" type="ghost">删除</Button>
+                     <Button onClick={this.toClickDelete} size="small" type="ghost">删除</Button>
                      </Tooltip>
                   </ButtonGroup>
         },
@@ -126,6 +126,9 @@ export default class Article extends Component {
         clickedArticleId:record.id,
         clickedArticleTitle:record.title
       })
+  }
+  toEdit=(record)=>{
+    this.props.history.push(`/admin/article/edit/${record.id}`,record)
   }
   // 点击取消删除
   handleCancelDelete=()=>{

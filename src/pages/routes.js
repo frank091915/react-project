@@ -1,4 +1,4 @@
-import {Article,DashBoar,Mine,Setting} from "./index"
+import {Article,DashBoar,Mine,Setting,Edit} from "./index"
 
 const Routes=[
     {
@@ -13,9 +13,16 @@ const Routes=[
         path:"/admin/article",
         component:Article,
         title:"文章",
-        exact:false,
+        exact:true,
         isNav:true,
         iconType:"form"
+    }
+    ,
+    {
+        path:"/admin/article/edit/:id",
+        component:Edit,
+        exact:false,
+        isNav:false,
     },
     {
         path:"/admin/setting",

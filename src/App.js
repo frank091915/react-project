@@ -5,11 +5,11 @@ import  {Route,Switch,Redirect} from "react-router-dom"
 import {Frame} from "./components/index"
 import {Routes} from "./pages/routes"
 
+
+
 const navRoutes =Routes.filter((curr)=>{
     return curr.isNav
 })
-
-
 class App extends Component {
   render() {
     return (

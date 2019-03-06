@@ -66,8 +66,7 @@ class NormalLoginForm extends Component {
 
   }
     render() {
-      const { getFieldDecorator,setFieldsValue } = this.props.form;
-
+      const { getFieldDecorator} = this.props.form;
       return (
 
         <Card

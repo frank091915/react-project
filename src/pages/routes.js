@@ -1,4 +1,4 @@
-import {Article,DashBoar,Mine,Setting,Edit} from "./index"
+import {Article,DashBoar,Mine,Setting,Edit,Notification,notificationEdit} from "./index"
 
 const Routes=[
     {
@@ -21,6 +21,17 @@ const Routes=[
     {
         path:"/admin/article/edit/:id",
         component:Edit,
+        exact:false,
+        isNav:false,
+    },{
+        path:"/admin/notifications",
+        component:Notification,
+        exact:true,
+        isNav:false,
+    },
+    {
+        path:"/admin/notifications/edit/:id",
+        component:notificationEdit,
         exact:false,
         isNav:false,
     },

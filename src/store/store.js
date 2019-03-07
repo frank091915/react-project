@@ -1,7 +1,6 @@
 import {createStore,applyMiddleware} from "redux"
 import combinedReducers from "./reducers/index"
 import thunk from "redux-thunk"
-console.dir(combinedReducers)
 
 export default createStore(combinedReducers,applyMiddleware(thunk))
 

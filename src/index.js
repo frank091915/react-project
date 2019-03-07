@@ -15,7 +15,6 @@ import {BrowserRouter as Router,Switch,Route,Redirect } from "react-router-dom"
 
 
 import "./index.less"
-
 ReactDOM.render(
     // 使所有组件都可以拿到store
     <Provider store={store}>

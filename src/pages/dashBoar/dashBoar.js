@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card} from  "antd"
+import {Card,Radio} from  "antd"
 
 import {getArticleListBeTest} from "../../request/requestTwo"
 
@@ -12,7 +12,9 @@ export default class DashBoar extends Component {
     super()
     this.myChart=React.createRef()
     this.state={
-        relativeMonths:""
+        relativeMonths:"",
+        size:"middle",
+        selectedSeason:1
     }
   }
   // 将绘制表格封装成一个可重复使用的方法，在用的时候只调用一个方法即可
@@ -36,9 +38,8 @@ export default class DashBoar extends Component {
         }]
     });
   }
-  componentDidMount()
-  {
-    getArticleListBeTest("234").then((res)=>{
+  toGetChartsData=()=>{
+    getArticleListBeTest(this.state.selectedSeason).then((res)=>{
       if(res.data.res_code===200){
         this.setState({
           relativeMonths:res.data.res_body.data.map((item)=>{
@@ -50,14 +51,33 @@ export default class DashBoar extends Component {
         })
       }
     })
-
-   
+  }
+  componentDidMount()
+  {
+    this.toGetChartsData()
+  }
+  handleRadioChange = (e) => {
+    this.setState({ 
+      size: e.target.value,
+      selectedSeason:e.target.selectedSeason
+    },()=>{
+      // 在改变state后，再次请求数据，然后别忘了渲染
+      this.toGetChartsData()
+      console.log(this.state)
+    });
+    
   }
   render() {
     return (
       <Card>
         <div>
-          <h1>DashBoar</h1>
+          <div>
+            <Radio.Group size="small" value={this.state.size} onChange={this.handleRadioChange}>
+              <Radio.Button selectedSeason={1} value="large">近一季度</Radio.Button>
+              <Radio.Button selectedSeason={2} value="default">近两季度</Radio.Button>
+              <Radio.Button selectedSeason={3} value="small">近三季度</Radio.Button>
+            </Radio.Group>
+          </div>
           <div style={{height:300,width:400}} ref={this.myChart}></div>
         </div>
       </Card >

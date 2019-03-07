@@ -1,7 +1,8 @@
 import {USER_NAME} from "../actions/user"
 
 const initState={
-        name:"frank"
+        name:"frank",
+        duration:"60mins"
 }
 
 
@@ -23,7 +24,7 @@ const initState={
 //     }
 //   }
  
- export const Username= (state=initState,action)=>{
+ export default (state=initState,action)=>{
     switch(action.type) {
         case USER_NAME :
         return {
@@ -34,4 +35,3 @@ const initState={
             return state
     }
 }
-export default Username

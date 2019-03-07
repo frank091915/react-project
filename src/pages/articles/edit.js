@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import E from 'wangeditor'
 import {
-    Form, Card, Input, Button, DatePicker, TimePicker
+    Form, Card, Input, Button, DatePicker
   } from 'antd';
   
 import { getArticleById} from "../../request/request"

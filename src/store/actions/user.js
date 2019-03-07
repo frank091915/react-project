@@ -4,3 +4,11 @@ export const changeUserName=()=>{
         type: USER_NAME
     }
 }
+
+export const changeUserNameAsync=()=>{
+    return (dispatch)=>{
+        setTimeout(() => {
+            dispatch(changeUserName())
+        }, 2000)
+    }
+}

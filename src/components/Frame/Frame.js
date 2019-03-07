@@ -9,16 +9,16 @@ import {connect} from "react-redux"
 
 import store from "../../store/store"
 import "./Frame.less"
-import {changeUserName} from "../../store/actions/user"
+import {changeUserName,changeUserNameAsync} from "../../store/actions/user"
 
 const { Header, Content, Sider } = Layout;
 const mapStateToProps=(state)=>{
   console.log(state)
     return{
-      name:state.name
+      name:state.user.name
     }
 }
-@connect(mapStateToProps,{changeUserName})
+@connect(mapStateToProps,{changeUserName,changeUserNameAsync})
 @withRouter
 export default class Frame extends Component {
   constructor(props){
@@ -34,7 +34,7 @@ export default class Frame extends Component {
   }
   changeUserName=()=>{
     console.log(this.props)
-    this.props.changeUserName()
+    this.props.changeUserNameAsync()
 
   }
   setName=()=>{

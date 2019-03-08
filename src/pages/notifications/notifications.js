@@ -3,7 +3,9 @@ import {List,Avatar,Card,Badge} from "antd"
 import { Link} from "react-router-dom"
 import {connect} from "react-redux"
 
+import {Button} from "antd"
 
+import {modifyToAllRead} from "../../store/actions/notification"
 
 const mapStateToProps=(state)=>{
     console.log(state)
@@ -12,7 +14,7 @@ const mapStateToProps=(state)=>{
     }
 }
 
-@connect(mapStateToProps)
+@connect(mapStateToProps,{modifyToAllRead})
 
 export default class Notifications extends Component {
     constructor(props){
@@ -24,17 +26,19 @@ export default class Notifications extends Component {
     }
   render() {
     return (
-        <Card>
+        <Card 
+            extra={<Button type="primary" onClick={this.props.modifyToAllRead} >标记全部已读</Button>}
+        >
             <div>
                 <h2>消息通知</h2>
                 <List
                     itemLayout="horizontal"
                     dataSource={this.props.notificationInfo}
                     renderItem={item => (
-                    <List.Item id={item.id}  onClick={this.clickToChangeReadingStatus}>
+                    <List.Item id={item.id}  >
                         <List.Item.Meta
                         
-                        avatar={<Badge dot><Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /></Badge>}
+                        avatar={<Badge dot={!item.isReaded}><Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /></Badge>}
                         title={<Link to={`/admin/notifications/edit/${item.id}`}>{item.title}</Link>}
                         description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                         />

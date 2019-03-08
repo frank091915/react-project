@@ -1,4 +1,13 @@
-import {Article,DashBoar,Mine,Setting,Edit,Notification,notificationEdit} from "./index"
+import {Article,
+    DashBoar,
+    Mine,
+    Setting,
+    Edit,
+    Notification,
+    notificationEdit,
+     toSignIn
+    }
+      from "./index"
 
 const Routes=[
     {
@@ -50,7 +59,7 @@ const Routes=[
         exact:false,
         isNav:true,
         iconType:"user"
-    },
+    }
 ]
 
 export {Routes}

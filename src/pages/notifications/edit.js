@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {connect } from "react-redux"
 
+import {Button} from "antd"
+
 import {changeReadingStatus} from "../../store/actions/notification"
 
 const mapStateToProps=(state)=>{
@@ -12,11 +14,16 @@ const mapStateToProps=(state)=>{
 @connect(mapStateToProps,{changeReadingStatus})
 
 export default class Edit extends Component {
+  goBack=()=>{
+    this.props.history.goBack()
+    console.log(this.props)
+  }
   render() {
       
     return (
       <div>
-        消息
+        <div><Button onClick={this.goBack}>返回上一级</Button></div>
+        <span>消息</span>
       </div>
     )
   }

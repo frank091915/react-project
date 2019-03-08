@@ -14,3 +14,6 @@ export const deleteArticleById = (id) => {
 export const getArticleById = (id) => {
     return ajax.post(`/api/v1/getArticle/${id}`)
   }
+  export const login = (params) => {
+    return ajax.post('/api/v1/login', params)
+  }

@@ -6,6 +6,7 @@ import Setting from "./settings/settings"
 import Notification from "./notifications/notifications"
 import notificationEdit from "./notifications/edit"
 
+
 export {
          Article,
         DashBoar,
@@ -13,5 +14,5 @@ export {
         Setting,
         Edit,
         Notification,
-        notificationEdit
+        notificationEdit,
 }

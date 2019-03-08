@@ -1,4 +1,4 @@
-import {CHANGE_READING_STATUS} from "../actions/notification"
+import {CHANGE_READING_STATUS,MODIFY_TO_ALL_READ} from "../actions/notification"
 
 const initialState={
     notificationInfo:[
@@ -25,7 +25,6 @@ const initialState={
       ]
 }
 export default (state=initialState,action)=>{
-    console.log(action.payload)
     switch(action.type){ 
         case CHANGE_READING_STATUS:
             return {
@@ -33,10 +32,18 @@ export default (state=initialState,action)=>{
                 notificationInfo:
                     state.notificationInfo.map((item)=>{
                         if(item.id===Number.parseInt(action.payload.notificationId)){
-                            alert("在执行dispatch")
                             item.isReaded=true
                         }
                         return item
+                })
+            }
+            case MODIFY_TO_ALL_READ:
+            return{
+              ...state,
+              notification:
+                state.notificationInfo.map((item)=>{
+                  item.isReaded=true
+                  return item
                 })
             }
        default:

@@ -51,7 +51,7 @@ export default class Frame extends Component {
             </span>
             </Link>
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item onClick={this.dropDown}>
             <Link  to="/admin/notifications">
             <Icon className="dropDownIcon" type="user" />
             <span>
@@ -77,6 +77,9 @@ export default class Frame extends Component {
     this.props.changeUserNameAsync()
 
   }
+  dropDown=()=>{
+    console.log(123)
+  }
   handleMenuClick = (e) => {
   }
   setName=()=>{
@@ -94,7 +97,7 @@ export default class Frame extends Component {
         <Layout>
         <Header className="header">
           <div className="logo" />
-          <Dropdown overlay={this.state.menu}>
+          <Dropdown onClick={this.dropDown} overlay={this.state.menu}>
            <div className="AvatarBox">
             <Badge count={this.props.toReadCount}>
               <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />

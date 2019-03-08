@@ -16,11 +16,6 @@ class App extends Component {
 
         <Frame frameInfo={navRoutes}>
         <Switch>
-          {/* {
-            Routes.map((curr)=>{
-              return <Route key={curr.path} path={curr.path} exact={curr.exact} component={curr.component}/>
-            })
-          } */}
           {
             Routes.map(route => {
               return (

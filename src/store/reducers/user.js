@@ -1,8 +1,10 @@
 import {USER_NAME} from "../actions/user"
+import {HAS_SIGN_IN} from "../actions/user"
 
 const initState={
         name:"frank",
-        duration:"60mins"
+        duration:"60mins",
+        hasSignIn:false
 }
 
 
@@ -30,6 +32,12 @@ const initState={
         return {
             ...state,
             name:Math.random()
+        }
+        case HAS_SIGN_IN:
+        console.log(action.payload)
+        return{
+            ...state,
+            userData:action.payload.userInfo
         }
         default:
             return state

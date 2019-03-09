@@ -5,7 +5,7 @@ import Mine from "./mine/mine"
 import Setting from "./settings/settings"
 import Notification from "./notifications/notifications"
 import notificationEdit from "./notifications/edit"
-
+import noAuthority from "./noAuthority/noAuthority"
 
 export {
          Article,
@@ -15,4 +15,5 @@ export {
         Edit,
         Notification,
         notificationEdit,
+        noAuthority
 }

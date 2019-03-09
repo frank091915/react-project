@@ -9,11 +9,10 @@ import {connect} from "react-redux"
 
 import store from "../../store/store"
 import "./Frame.less"
-import {changeUserName,changeUserNameAsync} from "../../store/actions/user"
+import {changeUserName,changeUserNameAsync,toSignOutAction} from "../../store/actions/user"
 
 const { Header, Content, Sider } = Layout;
 const mapStateToProps=(state)=>{
-  console.log(state)
     return{
       name:state.user.name,
       notifications:state.notification.notificationInfo,
@@ -28,7 +27,7 @@ const mapStateToProps=(state)=>{
 }
 
 
-@connect(mapStateToProps,{changeUserName,changeUserNameAsync})
+@connect(mapStateToProps,{changeUserName,changeUserNameAsync,toSignOutAction})
 @withRouter
 export default class Frame extends Component {
   constructor(props){
@@ -53,13 +52,21 @@ export default class Frame extends Component {
             </span>
             </Link>
           </Menu.Item>
-          <Menu.Item onClick={this.dropDown}>
+          <Menu.Item>
             <Link  to="/admin/notifications">
             <Icon className="dropDownIcon" type="user" />
             <span>
              消息通知
              </span>
             </Link>
+          </Menu.Item>
+          <Menu.Item 
+            onClick={this.signOut}
+          >
+           <Icon type="logout" />
+            <span>
+              退出
+            </span>
           </Menu.Item>
         </Menu>
       ),
@@ -70,6 +77,7 @@ export default class Frame extends Component {
         return pre
       },0)
     }
+    
   }
   navClick=({key})=>{
     this.props.history.push(key)
@@ -79,8 +87,8 @@ export default class Frame extends Component {
     this.props.changeUserNameAsync()
 
   }
-  dropDown=()=>{
- 
+  signOut=()=>{
+     this.props.toSignOutAction("2")
   }
   handleMenuClick = (e) => {
   }

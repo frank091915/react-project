@@ -8,3 +8,10 @@ const ajax=axios.create({
 export const getArticleListBeTest = (params=6) => {
     return ajax.post('/api/v1/chartsOne/:monthParams', params)
   }
+
+export const SignOut = (params) => {
+    return ajax.post('api/v1/signOut', params)
+  }
+  export const login = (params) => {
+    return ajax.post('api/v1/signIn', params)
+  }

@@ -1,5 +1,5 @@
 
-import {HAS_SIGN_IN,FAILED_TO_SIGN_IN} from "../actions/user"
+import {HAS_SIGN_IN,FAILED_TO_SIGN_IN,HAS_SIGN_OUT} from "../actions/user"
 
 const USER_INFO_LOCALSTORAGE="KKUSERINFO"
 
@@ -35,7 +35,6 @@ const initState=Object.assign(
  export default (state=initState,action)=>{
     switch(action.type) {
         case HAS_SIGN_IN:
-        console.log(action.payload.userInfo)
         const newUserInfo={
             ...state,
             ...action.payload.userInfo,
@@ -44,14 +43,25 @@ const initState=Object.assign(
         }
         window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(newUserInfo))
         return{
-           hasSignIn:true,
+           
             // userData:action.payload.userInfo,
             name:action.payload.userInfo.displayName,
-            ...action.payload.userInfo
+            ...action.payload.userInfo,
+            hasSignIn:true
         }
         case FAILED_TO_SIGN_IN:
         alert("登录失败")
         return{
+            hasSignIn:false
+        }
+        case HAS_SIGN_OUT:
+        const beforeSignOurLocalStorage=JSON.parse(localStorage.getItem(USER_INFO_LOCALSTORAGE))
+        console.log(state)
+        beforeSignOurLocalStorage.hasSignIn=false
+        window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(beforeSignOurLocalStorage))
+        window.location.href="/signIn"
+        return{
+            ...state,
             hasSignIn:false
         }
         default:

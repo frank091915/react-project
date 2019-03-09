@@ -10,7 +10,6 @@ import  { Component } from 'react'
 import "../index.less"
 
 const mapStateToProps=(state)=>{
-    console.log(state)
     return{
         hasSignIn:state.user.authorationToken ?true:false
     }
@@ -20,7 +19,6 @@ const mapStateToProps=(state)=>{
  
  export default class SupremeRoutesComponent extends Component {
    render() {
-       console.log(this.props)
      return (
         <Router>
             <Switch>

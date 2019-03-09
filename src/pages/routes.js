@@ -1,12 +1,12 @@
 import {Article,
-    DashBoar,
-    Mine,
-    Setting,
-    Edit,
-    Notification,
-    notificationEdit,
-     toSignIn
-    }
+        DashBoar,
+        Mine,
+        Setting,
+        Edit,
+        Notification,
+        notificationEdit,
+        noAuthority
+        }
       from "./index"
 
 const Routes=[
@@ -59,6 +59,12 @@ const Routes=[
         exact:false,
         isNav:true,
         iconType:"user"
+    },
+    {
+        path:"/admin/noAuthority",
+        component:noAuthority,
+        exact:true,
+        isNav:true,
     }
 ]
 

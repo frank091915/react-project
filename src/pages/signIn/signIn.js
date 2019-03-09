@@ -8,9 +8,11 @@ import {Redirect} from "react-router-dom"
 import {toSignInAction} from "../../store/actions/user"
 
 const mapStateToProps=(state)=>{
-  console.log(state.user.hasSignIn)
+  console.log(state)
   return {
-    hasSignIn:state.user.hasSignIn
+    hasSignIn:state.user.hasSignIn,
+    account:state.user.account,
+    password:state.user.password
   }
 }
 
@@ -19,14 +21,12 @@ const mapStateToProps=(state)=>{
  class SignIn extends Component {
      constructor(props){
         super()
-        console.log(props);
      }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log(values);
             this.props.toSignInAction()
           }
         });
@@ -46,6 +46,7 @@ const mapStateToProps=(state)=>{
         <Form.Item>
           {getFieldDecorator('userName', {
             rules: [{ required: true, message: 'Please input your username!' }],
+            initialValue:this.props.account
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
           )}
@@ -53,6 +54,7 @@ const mapStateToProps=(state)=>{
         <Form.Item>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
+            initialValue:this.props.password
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}

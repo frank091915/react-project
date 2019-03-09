@@ -63,7 +63,6 @@ export default class DashBoar extends Component {
     },()=>{
       // 在改变state后，再次请求数据，然后别忘了渲染
       this.toGetChartsData()
-      console.log(this.state)
     });
     
   }

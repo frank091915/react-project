@@ -13,15 +13,17 @@ import {changeUserName,changeUserNameAsync} from "../../store/actions/user"
 
 const { Header, Content, Sider } = Layout;
 const mapStateToProps=(state)=>{
+  console.log(state)
     return{
       name:state.user.name,
       notifications:state.notification.notificationInfo,
       toReadCount:state.notification.notificationInfo.reduce((pre,nex)=>{
-        if(nex.isReaded===false){
-          pre++
-        }
-      return pre
-    },0)
+            if(nex.isReaded===false){
+              pre++
+            }
+          return pre
+        },0),
+      avatar:state.user.avatar
     }
 }
 
@@ -78,7 +80,7 @@ export default class Frame extends Component {
 
   }
   dropDown=()=>{
-    console.log(123)
+ 
   }
   handleMenuClick = (e) => {
   }
@@ -89,10 +91,12 @@ export default class Frame extends Component {
   }
   componentDidMount(){
     this.setName()
-    console.log(this.props)
+
   }
   render() {
-
+    const {
+      avatar
+    }=this.props
     return (
         <Layout>
         <Header className="header">
@@ -100,10 +104,10 @@ export default class Frame extends Component {
           <Dropdown onClick={this.dropDown} overlay={this.state.menu}>
            <div className="AvatarBox">
             <Badge count={this.props.toReadCount}>
-              <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
+              <Avatar src={avatar} />
             </Badge>
             <span className="nameSpan" style={{color:"white"}}>{this.props.name}</span>
-              <span className="mineSpan">个人中心</span>
+            
            </div>
           </Dropdown>
         </Header>

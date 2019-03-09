@@ -8,7 +8,6 @@ import {Button} from "antd"
 import {modifyToAllRead} from "../../store/actions/notification"
 
 const mapStateToProps=(state)=>{
-    console.log(state)
     return{
         notificationInfo:state.notification.notificationInfo
     }
@@ -22,7 +21,6 @@ export default class Notifications extends Component {
         this.state={
            
         }
-        console.log(props)
     }
   render() {
     return (

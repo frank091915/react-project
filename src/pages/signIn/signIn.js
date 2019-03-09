@@ -3,10 +3,18 @@ import {
     Form, Icon, Input, Button, Checkbox,
   } from 'antd';
 import {connect} from "react-redux"
+import {Redirect} from "react-router-dom"
 
 import {toSignInAction} from "../../store/actions/user"
 
-@connect(null,{toSignInAction})
+const mapStateToProps=(state)=>{
+  console.log(state.user.hasSignIn)
+  return {
+    hasSignIn:state.user.hasSignIn
+  }
+}
+
+@connect(mapStateToProps,{toSignInAction})
 
  class SignIn extends Component {
      constructor(props){
@@ -23,10 +31,14 @@ import {toSignInAction} from "../../store/actions/user"
           }
         });
       }
-
+    componentDidMount(){
+      console.log(this.props)
+    }
   render() {
     const { getFieldDecorator } = this.props.form;
-    return (
+    return  this.props.hasSignIn ? 
+    <Redirect to="/admin/" /> : 
+    (
       <Form 
           wrapperCol={{span:8,offset:8}}
          onSubmit={this.handleSubmit} className="login-form"
@@ -60,7 +72,7 @@ import {toSignInAction} from "../../store/actions/user"
           </div>
         </Form.Item>
       </Form>
-    );
+    )
   }
 
 }

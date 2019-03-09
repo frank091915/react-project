@@ -1,11 +1,17 @@
-import {USER_NAME} from "../actions/user"
-import {HAS_SIGN_IN} from "../actions/user"
 
-const initState={
-        name:"frank",
-        duration:"60mins",
+import {HAS_SIGN_IN,FAILED_TO_SIGN_IN} from "../actions/user"
+
+const USER_INFO_LOCALSTORAGE="KKUSERINFO"
+
+const localStorageState=JSON.parse(localStorage.getItem(USER_INFO_LOCALSTORAGE))||{}
+const initState=Object.assign(
+    {},
+    {
+        name:localStorageState.displayName,
         hasSignIn:false
-}
+    },
+    localStorageState
+)
 
 
 // const initState = {
@@ -28,16 +34,25 @@ const initState={
  
  export default (state=initState,action)=>{
     switch(action.type) {
-        case USER_NAME :
-        return {
-            ...state,
-            name:Math.random()
-        }
         case HAS_SIGN_IN:
-        console.log(action.payload)
-        return{
+        console.log(action.payload.userInfo)
+        const newUserInfo={
             ...state,
-            userData:action.payload.userInfo
+            ...action.payload.userInfo,
+            hasSignIn:true,
+            name:action.payload.userInfo.displayName
+        }
+        window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(newUserInfo))
+        return{
+           hasSignIn:true,
+            // userData:action.payload.userInfo,
+            name:action.payload.userInfo.displayName,
+            ...action.payload.userInfo
+        }
+        case FAILED_TO_SIGN_IN:
+        alert("登录失败")
+        return{
+            hasSignIn:false
         }
         default:
             return state

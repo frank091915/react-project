@@ -15,3 +15,6 @@ export const SignOut = (params) => {
   export const login = (params) => {
     return ajax.post('api/v1/signIn', params)
   }
+  export const checkToken = (params) => {
+    return ajax.post('api/v1/tokenChecking', params)
+  }

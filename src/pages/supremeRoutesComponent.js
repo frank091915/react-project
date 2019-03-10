@@ -7,6 +7,8 @@ import {BrowserRouter as Router,Switch,Route,Redirect } from "react-router-dom"
 import {connect} from "react-redux"
 import  { Component } from 'react'
 
+import {tokenChecking} from "../store/actions/user"
+
 import "../index.less"
 
 const mapStateToProps=(state)=>{
@@ -15,9 +17,13 @@ const mapStateToProps=(state)=>{
     }
 }
 
-@connect(mapStateToProps)
+@connect(mapStateToProps,{tokenChecking})
  
  export default class SupremeRoutesComponent extends Component {
+    componentDidMount(){
+         console.log(this.props)
+         this.props.tokenChecking()
+     }
    render() {
      return (
         <Router>

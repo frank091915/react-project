@@ -1,11 +1,11 @@
-import {SignOut,login} from "../../request/requestTwo"
+import {SignOut,login,checkToken} from "../../request/requestTwo"
 
 export const USER_NAME="USER_NAME";
 export const TO_SIGN_IN="TO_SIGN_IN";
 export const HAS_SIGN_IN="HAS_SIGN_IN";
 export const FAILED_TO_SIGN_IN="FAILED_TO_SIGN_IN";
 export const HAS_SIGN_OUT="HAS_SIGN_OUT";
-
+export const TOKEN_CONFIRMED="TOKEN_CONFIRMED";
 
 export const changeUserName=()=>{
     return{
@@ -24,6 +24,12 @@ export const hasSignIn=(userInfo)=>{
         payload:{
             userInfo
         }
+    }
+}
+
+export const tokenComfirmed=()=>{
+    return{
+        type: TOKEN_CONFIRMED,
     }
 }
 
@@ -69,6 +75,24 @@ export const toSignOutAction=(params)=>{
                 }else{
                     // dispatch(failedToSignIn())
                 }
+                
+            }
+        )
+            
+    }
+}
+
+// 检查token
+export const tokenChecking=(params)=>{ 
+    return (dispatch)=>{
+        checkToken(params).then(
+            (res)=>{
+                console.log(res)
+                // if(res.data.res_code===200){
+                //     dispatch(hasSignOut())
+                // }else{
+                //     // dispatch(failedToSignIn())
+                // }
                 
             }
         )

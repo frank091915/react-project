@@ -31,7 +31,7 @@ export default (state=initialState,action)=>{
                 ...state,
                 notificationInfo:
                     state.notificationInfo.map((item)=>{
-                        if(item.id===Number.parseInt(action.payload.notificationId)){
+                        if(item.id===Number.parseInt(action.payload.notificationId,10)){
                             item.isReaded=true
                         }
                         return item

@@ -6,6 +6,7 @@ export const HAS_SIGN_IN="HAS_SIGN_IN";
 export const FAILED_TO_SIGN_IN="FAILED_TO_SIGN_IN";
 export const HAS_SIGN_OUT="HAS_SIGN_OUT";
 export const TOKEN_CONFIRMED="TOKEN_CONFIRMED";
+export const TOKEN_FAILED="TOKEN_FAILED";
 
 export const changeUserName=()=>{
     return{
@@ -27,9 +28,10 @@ export const hasSignIn=(userInfo)=>{
     }
 }
 
-export const tokenComfirmed=()=>{
+export const tokenComfirmed=(newToken)=>{
     return{
         type: TOKEN_CONFIRMED,
+        payload:newToken
     }
 }
 
@@ -39,7 +41,11 @@ export const hasSignOut=()=>{
     }
 }
 
-
+export const tokenInvalid=(token)=>{
+    return{
+        type: TOKEN_FAILED
+    }
+}
 
 export const changeUserNameAsync=()=>{
     return (dispatch)=>{
@@ -69,7 +75,6 @@ export const toSignOutAction=(params)=>{
     return (dispatch)=>{
         SignOut(params).then(
             (res)=>{
-                console.log(res)
                 if(res.data.res_code===200){
                     dispatch(hasSignOut())
                 }else{
@@ -85,17 +90,20 @@ export const toSignOutAction=(params)=>{
 // 检查token
 export const tokenChecking=(params)=>{ 
     return (dispatch)=>{
-        checkToken(params).then(
-            (res)=>{
+        const {authorationToken :formerToken}=JSON.parse(window.localStorage.getItem("KKUSERINFO")) ||{}
+        
+        if(!formerToken){
+            return
+        }else{
+            checkToken(formerToken).then((res)=>{
                 console.log(res)
-                // if(res.data.res_code===200){
-                //     dispatch(hasSignOut())
-                // }else{
-                //     // dispatch(failedToSignIn())
-                // }
-                
-            }
-        )
+                if(res.data.res_code===1){
+                    dispatch(tokenComfirmed(res.data.res_body))
+                }else{
+                    dispatch(tokenInvalid())
+                }
+            })
+        }
             
     }
 }

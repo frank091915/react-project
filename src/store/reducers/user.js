@@ -1,5 +1,10 @@
 
-import {HAS_SIGN_IN,FAILED_TO_SIGN_IN,HAS_SIGN_OUT} from "../actions/user"
+import {    HAS_SIGN_IN,
+            FAILED_TO_SIGN_IN,
+            HAS_SIGN_OUT,
+            TOKEN_CONFIRMED,
+            TOKEN_FAILED
+        } from "../actions/user"
 
 const USER_INFO_LOCALSTORAGE="KKUSERINFO"
 
@@ -61,6 +66,25 @@ const initState=Object.assign(
         window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(beforeSignOurLocalStorage))
         window.location.href="/signIn"
         return{
+            ...state,
+            hasSignIn:false
+        }
+        case TOKEN_CONFIRMED :
+        alert("tokenChecked")
+        console.log(action.payload)
+        const newTokenStorage={
+            ...state,
+            hasSignIn:true,
+            authorationToken:action.payload.data
+        }
+        window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(newTokenStorage))
+        return {
+            ...state,
+            hasSignIn:true,
+            authorationToken:action.payload.data
+        }
+        case TOKEN_FAILED:
+        return {
             ...state,
             hasSignIn:false
         }

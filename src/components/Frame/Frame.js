@@ -104,7 +104,8 @@ export default class Frame extends Component {
   render() {
     const {
       avatar
-    }=this.props
+    }=this.props;
+
     return (
         <Layout>
         <Header className="header">
@@ -123,7 +124,7 @@ export default class Frame extends Component {
           <Sider width={200} style={{ background: '#fff' }}>
             <Menu
               mode="inline"
-              defaultSelectedKeys={[this.props.frameInfo[0].path]}
+              defaultSelectedKeys={[this.props.location.pathname]}
               defaultOpenKeys={['sub1']}
               onClick={this.navClick}
               style={{ height: '100%', borderRight: 0 }}

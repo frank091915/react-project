@@ -21,7 +21,6 @@ const mapStateToProps=(state)=>{
  
  export default class SupremeRoutesComponent extends Component {
     componentDidMount(){
-         console.log(this.props)
          this.props.tokenChecking()
      }
    render() {

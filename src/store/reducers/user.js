@@ -61,7 +61,6 @@ const initState=Object.assign(
         }
         case HAS_SIGN_OUT:
         const beforeSignOurLocalStorage=JSON.parse(localStorage.getItem(USER_INFO_LOCALSTORAGE))
-        console.log(state)
         beforeSignOurLocalStorage.hasSignIn=false
         window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(beforeSignOurLocalStorage))
         window.location.href="/signIn"
@@ -70,8 +69,6 @@ const initState=Object.assign(
             hasSignIn:false
         }
         case TOKEN_CONFIRMED :
-        alert("tokenChecked")
-        console.log(action.payload)
         const newTokenStorage={
             ...state,
             hasSignIn:true,

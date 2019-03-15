@@ -96,7 +96,6 @@ export const tokenChecking=(params)=>{
             return
         }else{
             checkToken(formerToken).then((res)=>{
-                console.log(res)
                 if(res.data.res_code===1){
                     dispatch(tokenComfirmed(res.data.res_body))
                 }else{

@@ -12,9 +12,10 @@ export default class DashBoar extends Component {
     super()
     this.myChart=React.createRef()
     this.state={
-        relativeMonths:"",
+        relativeMonths:[],
         size:"middle",
-        selectedSeason:1
+        selectedSeason:1,
+        articleReadings:[]
     }
   }
   // 将绘制表格封装成一个可重复使用的方法，在用的时候只调用一个方法即可
@@ -32,8 +33,8 @@ export default class DashBoar extends Component {
         yAxis: {},
         series: [{
             name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+            type: 'line',
+            data: this.state.articleReadings
             // 获取到的数据为json，而这里的数据格式为数组，可以使用json的map方法，把需要的属性返回为一个数组即可
         }]
     });
@@ -44,8 +45,11 @@ export default class DashBoar extends Component {
         this.setState({
           relativeMonths:res.data.res_body.data.map((item)=>{
                             return item.relativeMonths
-                          })
-        },function(){
+                          }),
+          articleReadings:res.data.res_body.data.map((item)=>{
+            return item.articleReadings
+          })
+        },()=>{
           // ！！！数据返回后再来渲染表格吧
           this.setEchartsOptions()
         })

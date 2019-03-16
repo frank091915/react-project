@@ -1,148 +1,148 @@
 import React, { Component } from 'react'
 
-import {withRouter,Link}  from "react-router-dom"
+import { withRouter, Link } from "react-router-dom"
 import {
-    Layout, Menu, Icon,Avatar,Badge,Dropdown
-  }   
+  Layout, Menu, Icon, Avatar, Badge, Dropdown
+}
   from 'antd';
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 import store from "../../store/store"
 import "./Frame.less"
-import {changeUserName,changeUserNameAsync,toSignOutAction} from "../../store/actions/user"
+import { changeUserName, changeUserNameAsync, toSignOutAction } from "../../store/actions/user"
 
 const { Header, Content, Sider } = Layout;
-const mapStateToProps=(state)=>{
-    return{
-      name:state.user.name,
-      notifications:state.notification.notificationInfo,
-      toReadCount:state.notification.notificationInfo.reduce((pre,nex)=>{
-            if(nex.isReaded===false){
-              pre++
-            }
-          return pre
-        },0),
-      avatar:state.user.avatar
-    }
+const mapStateToProps = (state) => {
+  return {
+    name: state.user.name,
+    notifications: state.notification.notificationInfo,
+    toReadCount: state.notification.notificationInfo.reduce((pre, nex) => {
+      if (nex.isReaded === false) {
+        pre++
+      }
+      return pre
+    }, 0),
+    avatar: state.user.avatar
+  }
 }
 
 
-@connect(mapStateToProps,{changeUserName,changeUserNameAsync,toSignOutAction})
+@connect(mapStateToProps, { changeUserName, changeUserNameAsync, toSignOutAction })
 @withRouter
 export default class Frame extends Component {
-  constructor(props){
+  constructor(props) {
     super()
-    this.state={
-      userName:"",
-      menu : (
+    this.state = {
+      userName: "",
+      menu: (
         <Menu onClick={this.handleMenuClick}>
           <Menu.Item  >
-           <Link  to="/admin/notifications">
-           <Icon className="dropDownIcon" type="edit" />
-           <span>
-             文章管理
+            <Link to="/admin/notifications">
+              <Icon className="dropDownIcon" type="edit" />
+              <span>
+                文章管理
            </span>
-           </Link>
+            </Link>
           </Menu.Item>
           <Menu.Item >
-            <Link  to="/admin/notifications">
-            <Icon className="dropDownIcon" type="setting" />
-            <span>
-            设置
+            <Link to="/admin/notifications">
+              <Icon className="dropDownIcon" type="setting" />
+              <span>
+                设置
             </span>
             </Link>
           </Menu.Item>
           <Menu.Item>
-            <Link  to="/admin/notifications">
-            <Icon className="dropDownIcon" type="user" />
-            <span>
-             消息通知
+            <Link to="/admin/notifications">
+              <Icon className="dropDownIcon" type="user" />
+              <span>
+                消息通知
              </span>
             </Link>
           </Menu.Item>
-          <Menu.Item 
+          <Menu.Item
             onClick={this.signOut}
           >
-           <Icon type="logout" />
+            <Icon type="logout" />
             <span>
               退出
             </span>
           </Menu.Item>
         </Menu>
       ),
-      toReadCount:props.notifications.reduce((pre,nex)=>{
-          if(nex.isReaded===false){
-            pre++
-          }
+      toReadCount: props.notifications.reduce((pre, nex) => {
+        if (nex.isReaded === false) {
+          pre++
+        }
         return pre
-      },0)
+      }, 0)
     }
-    
+
   }
-  navClick=({key})=>{
+  navClick = ({ key }) => {
     this.props.history.push(key)
-    this.store=store
+    this.store = store
   }
-  changeUserName=()=>{
+  changeUserName = () => {
     this.props.changeUserNameAsync()
 
   }
-  signOut=()=>{
-     this.props.toSignOutAction("2")
+  signOut = () => {
+    this.props.toSignOutAction("2")
   }
   handleMenuClick = (e) => {
   }
-  setName=()=>{
+  setName = () => {
     this.setState({
-      userName:store.getState().name
+      userName: store.getState().name
     })
   }
-  componentDidMount(){
+  componentDidMount() {
     this.setName()
 
   }
   render() {
     const {
       avatar
-    }=this.props;
-
+    } = this.props;
+    const slicedPath=this.props.location.pathname.split("/").slice(0,3).join("/")
     return (
-        <Layout>
+      <Layout>
         <Header className="header">
           <div className="logo" />
           <Dropdown onClick={this.dropDown} overlay={this.state.menu}>
-           <div className="AvatarBox">
-            <Badge count={this.props.toReadCount}>
-              <Avatar src={avatar} />
-            </Badge>
-            <span className="nameSpan" style={{color:"white"}}>{this.props.name}</span>
-            
-           </div>
+            <div className="AvatarBox">
+              <Badge count={this.props.toReadCount}>
+                <Avatar src={avatar} />
+              </Badge>
+              <span className="nameSpan" style={{ color: "white" }}>{this.props.name}</span>
+
+            </div>
           </Dropdown>
         </Header>
         <Layout>
           <Sider width={200} style={{ background: '#fff' }}>
             <Menu
               mode="inline"
-              defaultSelectedKeys={[this.props.location.pathname]}
-              defaultOpenKeys={['sub1']}
+              selectedKeys={[slicedPath]}
+              defaultOpenKeys={[this.props.location.pathname]}
               onClick={this.navClick}
               style={{ height: '100%', borderRight: 0 }}
             >
-            {
-              this.props.frameInfo.map((curr)=>{
-                return  <Menu.Item key={curr.path}><Icon type={curr.iconType} />{curr.title}</Menu.Item>
-              })
-            }
-              
+              {
+                this.props.frameInfo.map((curr) => {
+                  return <Menu.Item key={curr.path}><Icon type={curr.iconType} />{curr.title}</Menu.Item>
+                })
+              }
+
             </Menu>
           </Sider>
           <Layout >
-            <Content   style={{
+            <Content style={{
               background: '#fff', margin: 0, minHeight: 280,
             }}
             >
-            {this.props.children }
+              {this.props.children}
             </Content>
           </Layout>
         </Layout>
@@ -151,4 +151,3 @@ export default class Frame extends Component {
   }
 }
 
- 

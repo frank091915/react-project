@@ -259,11 +259,9 @@ module.exports = {
                     {
                       loader: require.resolve('less-loader'),
                       options: {
-                        importLoaders: 1,
-                        minimize: true,
-                        sourceMap: shouldUseSourceMap,
-                      },
-                    },
+                        javascriptEnabled:true,
+                      }
+                    }
                   ],
                 },
                 extractTextPluginOptions

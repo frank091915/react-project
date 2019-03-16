@@ -62,7 +62,7 @@ const initState=Object.assign(
         case HAS_SIGN_OUT:
         const beforeSignOurLocalStorage=JSON.parse(localStorage.getItem(USER_INFO_LOCALSTORAGE))
         beforeSignOurLocalStorage.hasSignIn=false
-        window.localStorage.setItem(USER_INFO_LOCALSTORAGE,JSON.stringify(beforeSignOurLocalStorage))
+        window.localStorage.removeItem(USER_INFO_LOCALSTORAGE)
         window.location.href="/signIn"
         return{
             ...state,

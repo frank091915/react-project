@@ -33,6 +33,7 @@ const mapStateToProps=(state)=>{
                     path="/admin" 
                     render={
                             ()=>{
+                                console.log(this.props.hasSignIn)
                                 return this.props.hasSignIn
                                     ?<App/>
                                     :<Redirect to="/signIn"/>
